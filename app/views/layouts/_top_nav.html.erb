@@ -1,4 +1,3 @@
-
 <header class="<%= current_page?(root_path) ? "hero" : "hero small" %>">
   <section class="title">
     <h3>Welcome to</h3>
@@ -22,7 +21,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <%# <li class="nav-item dropdown">
+        <!-- Categories -->
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -30,19 +30,20 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          > %>
-            <%# Categories %>
-          <%# </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown"> %>
+          >
+            Categories
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <% Category.all.each do |category| %>
-            <li class="nav-item">
-              <%= link_to category.name, category, class: "nav-link" %>
-            </li>
+              <li class="nav-item">
+                <%= link_to category.name, category, class: "nav-link" %>
+              </li>
             <% end %>
-          <%# </ul>
-        </li> %>
+          </ul>
+        </li>
       </ul>
       <ul class="navbar-nav">
+        <!-- Admin Dropdown -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle text-danger"
@@ -60,14 +61,31 @@
             <li><%= link_to 'Categories', [:admin, :categories], class: "nav-link" %></li>
           </ul>
         </li>
+        <!-- Cart -->
         <li class="nav-item end-0">
-          <%= link_to cart_path, class: "nav-link " do %> <%= fa_icon "shopping-cart" %>
-          My Cart (<%= cart.size %>) <% end %>
+          <%= link_to cart_path, class: "nav-link " do %> 
+            <%= fa_icon "shopping-cart" %>
+            My Cart (<%= cart.size %>)
+          <% end %>
         </li>
+        <!-- Register/Login/Logout -->
+        <% if session[:user_id] %>
+          <li class="nav-item end-0">
+            <%= link_to 'Log Out', logout_path, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item end-0">
+            <%= link_to 'Register', new_user_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item end-0">
+            <%= link_to 'Login', login_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
 </nav>
+
 <script>
 (function(){
 const gnr = () => {
