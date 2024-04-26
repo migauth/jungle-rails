@@ -1,6 +1,6 @@
 
 
-describe("Home Page", () => {
+describe("Product Page", () => {
   it("successfully loads", () => {
     // Visit the home page
     cy.visit("/");
